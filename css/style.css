@@ -1,0 +1,268 @@
+* {
+    font-family: "Arial";
+    margin: 0;
+    padding: 0;
+    outline: none;
+}
+
+input {
+    width: 300px;
+    display: block;
+    margin-top: 10px;
+    height: 30px;
+    border-radius: 15px;
+    border: 1px solid burlywood;
+    padding-left: 20px;
+}
+
+input[type="file"] {
+    width: 300px;
+    display: block;
+    margin-top: 10px;
+    height: 30px;
+    display: none;
+}
+
+label {
+    height: 30px;
+    color: burlywood;
+    width: 150px;
+    border: 1px solid burlywood;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+button {
+    width: 320px;
+    display: block;
+    height: 30px;
+    border: 1px solid burlywood;
+    border-radius: 15px;
+    background: none;
+    margin-top: 20px;
+    color: darkgray;
+}
+
+.form-text {
+    color: darkgray;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.container {
+    margin: 0 auto;
+    max-width: 1000px;
+    position: relative;
+}
+
+a {
+    color: burlywood;
+    font-size: 20px;
+    display: block;
+    text-decoration: none;
+}
+
+.record__edit {
+    position: relative;
+}
+
+.edit {
+    background: url("../local-images/edit.svg");
+    background-repeat: no-repeat;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left: -30px;
+}
+
+.edit:hover {
+    width: 22px;
+    height: 22px;
+}
+
+.record__form {
+    width: 100%;
+    min-height: 100px;
+}
+
+.record__wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+    position: relative;
+}
+
+.record__id {
+    font-size: 20px;
+}
+
+.record__name {
+    font-size: 20px;
+    color: burlywood;
+}
+
+.record__info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 30px;
+}
+
+.record__info img {
+    width: 400px;
+    height: 400px;
+    display: block;
+    margin-left: auto;
+}
+
+.record__descr {
+    max-width: 400px;
+    margin-right: 20px;
+    margin-top: 50px;
+}
+
+textarea {
+    width: 500px;
+    border: 1px solid burlywood;
+    border-radius: 15px;
+    height: 150px;
+    resize: none;
+    padding-left: 20px;
+    padding-top: 20px;
+    margin: 0 auto;
+    display: block;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100%;
+    margin-bottom: 100px;
+    min-height: 600px;
+}
+
+.wrapper__submit {
+    display: block;
+    margin-bottom: 20px;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100px;
+    background-color: grey;
+    margin-top: 100px;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100px;
+    background-color: grey;
+}
+
+.header__box {
+    width: 1700px;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+}
+
+@media (max-width: 500px) {
+    textarea {
+        max-width: 300px;
+    }
+
+}
+
+@media (max-width: 768px) {
+    textarea {
+        max-width: 300px;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .record__info {
+        flex-direction: column;
+    }
+
+    .record__info img {
+        max-width: 320px;
+        margin: 0;
+    }
+
+    .record__descr {
+        margin-top: 50px;
+    }
+}
+.record__wrapper:last-child {
+    margin-top: 20%;
+    margin-bottom: 20%;
+}
+
+.more__wrap {
+    width: 100px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid burlywood;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.pagination__item {
+    color: burlywood;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.separator {
+    margin-top: 300px;
+}
+
+.add-post {
+    display: flex;
+    margin-top: 50px;
+    justify-content: flex-start;
+    cursor: pointer;
+}
+
+.add-post img {
+    max-width: 30px;
+    display: block;
+    margin-left: 50px;
+}
+
+.status-img {
+    display: block;
+    width: 200px;
+    margin-top: 30px;
+}
