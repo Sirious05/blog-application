@@ -61,7 +61,7 @@
         };
         status.textContent = statusMessage.loading;
         const formData = new FormData(document.querySelector('#blog'));
-        const path = './allPost.php';
+        const path = './index.php';
         getData('./services/allId.json')
             .then(data => {
                 const serversId = [];
