@@ -1,3 +1,4 @@
+if (document.querySelector('#img')) {
     document.querySelector('#img').addEventListener('input', (e) => {
         let dots;
         let partsPath = document.querySelector('#img').files[0].name.split('.');
@@ -12,40 +13,42 @@
             document.querySelector('#img').previousElementSibling.textContent = document.querySelector('#img').files[0].name;
         }
     });
-    async function postData(url, data) {
-        let request = await fetch(`${url}`, {
-            method: 'POST',
-            cache: "no-cache",
-            body: data,
+}
+async function postData(url, data) {
+    let request = await fetch(`${url}`, {
+        method: 'POST',
+        cache: "no-cache",
+        body: data,
 
-        });
-        return await request.text();
-    }
+    });
+    return await request.text();
+}
 
-    async function getData(url) {
-        let request = await fetch(`${url}`);
-        if (!request.ok || !url) {
-            throw new Error(`Ошибка имеет статус ${request.status}`);
-        }
-        return await request.json();
+async function getData(url) {
+    let request = await fetch(`${url}`);
+    if (!request.ok || !url) {
+        throw new Error(`Ошибка имеет статус ${request.status}`);
     }
+    return await request.json();
+}
 
-    function bindValidate(numberSelector, stringSelector) {
-        let number = document.querySelectorAll(numberSelector),
-            string = document.querySelectorAll(stringSelector);
-        string.forEach(item => {
-            item.addEventListener('input', (e) => {
-                item.value = item.value.replace(/\d/, '');
-            });
+function bindValidate(numberSelector, stringSelector) {
+    let number = document.querySelectorAll(numberSelector),
+        string = document.querySelectorAll(stringSelector);
+    string.forEach(item => {
+        item.addEventListener('input', (e) => {
+            item.value = item.value.replace(/\d/, '');
         });
-        number.forEach(item => {
-            item.addEventListener('input', (e) => {
-                item.value = item.value.replace(/[-\.;":'a-zA-Zа-яА-Я]/, '');
-            });
+    });
+    number.forEach(item => {
+        item.addEventListener('input', (e) => {
+            item.value = item.value.replace(/[-\.;":'a-zA-Zа-яА-Я]/, '');
         });
-    }
-    bindValidate('input[name="id"]', 'input[type="text"]');
-    bindValidate('input[name="id"]', 'textarea');
+    });
+}
+bindValidate('input[name="id"]', 'input[type="text"]');
+bindValidate('input[name="id"]', 'textarea');
+if (document.querySelector('#blog')) {
     document.querySelector('#blog').addEventListener('submit', (e) => {
         const status = document.createElement('div');
         const imgAlert = document.createElement('img');
@@ -85,6 +88,7 @@
                         .then(data => {
                             console.log(data);
                             status.textContent = statusMessage.success;
+                            window.location.reload(true);
                             imgAlert.setAttribute('src', './local-images/success.png');
                             document.querySelector('#blog').classList.add('animated', 'fadeOut');
                             setTimeout(() => {
@@ -113,6 +117,7 @@
                     postData(path, formData)
                         .then(data => {
                             console.log(data);
+                            window.location.reload(true);
                             status.textContent = 'Введенная запись уже имеется в базе данных';
                             imgAlert.setAttribute('src', './local-images/fail.png');
                             document.querySelector('#blog').classList.add('animated', 'fadeOut');
@@ -146,3 +151,4 @@
             });
 
     });
+}

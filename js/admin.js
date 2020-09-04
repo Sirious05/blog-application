@@ -1,6 +1,8 @@
 document.querySelectorAll('.record__form').forEach(item => item.style.display = 'none');
+document.querySelectorAll('.record__form_remove').forEach(item => item.style.display = 'none');
 document.querySelectorAll('.edit').forEach((item, n) => {
     item.addEventListener('click', () => {
+        document.querySelectorAll('.record__form_remove').forEach(item => item.style.display = 'none');
         if (document.querySelectorAll('.record__form')[n].style.display === 'none') {
             document.querySelectorAll('.record__form')[n].style.display = 'block';
         } else {
@@ -23,7 +25,7 @@ document.querySelectorAll('.editmg').forEach(item => {
             item.previousElementSibling.textContent = item.files[0].name;
         }
     });
-})
+});
 
 function bindAdminValidate(numberSelector, stringSelector) {
     let number = document.querySelectorAll(numberSelector),
@@ -40,18 +42,27 @@ function bindAdminValidate(numberSelector, stringSelector) {
     });
 }
 bindAdminValidate('input[name="edit-id"]', 'input[type="text"]');
-async function AdminPostData(url, data) {
+async function postData(url, data) {
     let request = await fetch(`${url}`, {
         method: 'POST',
         cache: "no-cache",
         body: data,
-
     });
     if (!request.ok) {
         throw new Error(`Ошибка в ${request.url} имеет статус ${request.status}`);
     }
     return await request.text();
 }
+document.querySelectorAll('.remove').forEach((item, n) => {
+    item.addEventListener('click', (e) => {
+        document.querySelectorAll('.record__form').forEach(item => item.style.display = 'none');
+        if (document.querySelectorAll('.record__form_remove')[n].style.display === 'none') {
+            document.querySelectorAll('.record__form_remove')[n].style.display = 'flex';
+        } else {
+            document.querySelectorAll('.record__form_remove')[n].style.display = 'none';
+        }
+    });
+});
 document.querySelectorAll('.record__form').forEach((item, n) => {
     item.addEventListener('submit', (e) => {
         let status = document.createElement('div');
@@ -67,7 +78,7 @@ document.querySelectorAll('.record__form').forEach((item, n) => {
         let id = item.parentNode.querySelectorAll('.record__id span')[n].textContent;
         formData.append('old-id', id);
         let path = './admin.php';
-        AdminPostData(path, formData)
+        postData(path, formData)
             .then(data => {
                 console.log(data);
                 window.location.reload(true);
@@ -95,12 +106,38 @@ document.querySelectorAll('.record__form').forEach((item, n) => {
             });
     });
 });
-document.querySelector('.wrapper').style.display = 'none';
-document.querySelector('.add-post').addEventListener('click', () => {
-    if (document.querySelector('.wrapper').style.display === 'none') {
-        document.querySelector('.wrapper').style.display = 'flex';
-        document.querySelector('.wrapper').style.flexDirection = 'column';
-    } else {
-        document.querySelector('.wrapper').style.display = 'none';
-    }
+document.querySelectorAll('.record__form_remove').forEach((item, n) => {
+    item.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const formData = new FormData(item);
+        let id = e.currentTarget.parentNode.querySelector('.record__id span').textContent;
+        formData.append('deleteById', id);
+        let path = './admin.php';
+        postData(path, formData)
+            .then(data => {
+                console.log(data);
+                window.location.reload(true);
+                item.style.display = 'none';
+            })
+            .catch(err => {
+                console.log(err);
+            })
+            .finally(() => {
+                document.querySelectorAll('input').forEach(item => item.value = '');
+                item.style.display = 'none';
+            });
+    });
 });
+if (document.querySelector('.wrapper')) {
+    document.querySelector('.wrapper').style.display = 'none';
+}
+if (document.querySelector('.add-post')) {
+    document.querySelector('.add-post').addEventListener('click', () => {
+        if (document.querySelector('.wrapper').style.display === 'none') {
+            document.querySelector('.wrapper').style.display = 'flex';
+            document.querySelector('.wrapper').style.flexDirection = 'column';
+        } else {
+            document.querySelector('.wrapper').style.display = 'none';
+        }
+    });
+}

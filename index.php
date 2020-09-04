@@ -14,6 +14,7 @@
     require_once("./pagination.php");
     require_once("./functions.php");
     $conn = connect();
+    $recordsLength = length($conn);
     $sql = "SELECT id from goods";
     $result = mysqli_query($conn, $sql);
     $arrayOfId = [];
@@ -25,7 +26,16 @@
     $conn = connect();
     insertDB($conn);
     ?>
-    <?php echo file_get_contents('./header.html') ?>
+    <?php echo file_get_contents('./header.html');
+    if ($recordsLength <= 0) {
+    ?>
+        <div class="welcome">
+            <h2>Вы еще не добавили не одной записи</h2>
+            <a href="./admin.php">Добавить?</a>
+        </div>
+    <?php
+    }
+    ?>
     <?php
     $result = takePaginationRecord($conn);
     if ($result == false) {
@@ -81,12 +91,9 @@
     echo "</div>";
     $close = close($conn);
     ?>
-    <footer>
-        <div class="container">
-            <a href="./admin.php">Админка</a>
-            <a href="./index.php">Все посты</a>
-        </div>
-    </footer>
+    <?php echo file_get_contents('./footer.html') ?>
+    <script src="./js/admin.js"></script>
+    <script src="./js/script.js"></script>
 </body>
 
 </html>

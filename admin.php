@@ -25,6 +25,13 @@ if (!empty($_FILES) && !empty($_POST)) {
     $result = mysqli_query($conn, $sql);
     move_uploaded_file("{$formImage['tmp_name']}", "images/" . "{$formImage['name']}");
 }
+if (!empty($_POST)) {
+    $removeById = $_POST['deleteById'];
+    var_dump($removeById);
+    $sql = "DELETE FROM goods WHERE id=" . $removeById;
+    echo $removeById;
+    mysqli_query($conn, $sql);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -39,8 +46,42 @@ if (!empty($_FILES) && !empty($_POST)) {
 
 <body>
     <?php echo file_get_contents('./header.html');
-        $result = takePaginationRecord($conn);
-        if ($result == false) {
+    if ($length <= 0) {
+    ?>
+        <div class="welcome">
+            <h2>Вы еще не добавили не одной записи, но при добавлении она будет выглядеть примерно так.</h2><br>
+            <h2>Созданную запись можно будет редактировать или удалить</h2>
+            <div class="record__wrapper">
+                <div class="record__id">
+                    ID:
+                    <span>1</span>
+                </div>
+                <div class="record__name">
+                    Name:
+                    Name
+                </div>
+                <div class="record__info">
+                    <div class="record__descr">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat nihil, adipisci est earum deserunt iste voluptas distinctio autem molestiae ipsum odio. Beatae cupiditate doloribus ipsum voluptatem magni ut. Sint aliquid unde eum earum ut doloribus quasi consequuntur nisi labore? Aut, corporis quibusdam tempora et reiciendis commodi itaque. Exercitationem, ab eos!
+                    </div>
+                    <img src="
+                    <?php
+                    if (strlen($row['image']) != 0) {
+                        echo 'images/' . $row['image'];
+                    } else {
+                        echo 'local-images/no_icon.png';
+                    }
+                    ?>">
+                </div>
+                <div class="more__wrap">
+                    <a class="more__link" href="<?php echo "single.php" . "?id=" . "$row[id]" ?>">More...</a>
+                </div>
+            </div>
+        </div>
+    <?php
+    }
+    $result = takePaginationRecord($conn);
+    if ($result == false) {
         echo 404;
         exit();
     }
@@ -70,7 +111,8 @@ if (!empty($_FILES) && !empty($_POST)) {
             while ($row = mysqli_fetch_assoc($result)) {
         ?>
                 <?php if (isset($row)) echo "<div class=\"record__wrapper\">" ?>
-                <div class="edit"></div>
+                <div class="edit"><img src="./local-images/edit.svg"></div>
+                <div class="remove"><img src="./local-images/remove.png"></div>
                 <div class="record__id">
                     ID:
                     <span><?php if (isset($row['id'])) echo $row['id'] ?></span>
@@ -106,6 +148,10 @@ if (!empty($_FILES) && !empty($_POST)) {
                     <div class="form-text">Введите новый id записи(можно записать старый id)</div>
                     <input type="number" name="edit-id" />
                     <button>Отправить</button>
+                </form>
+                <form novalidate action="#" enctype="multipart/form-data" class="record__form_remove" method="POST">
+                    <div class="form-text">Вы уверены, что хотите удалить эту запись?</div>
+                    <button>Удалить</button>
                 </form>
         <?php if (isset($row)) echo "</div>";
             }
