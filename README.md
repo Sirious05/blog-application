@@ -1,5 +1,7 @@
 # blog-application
-application for creating a simple blog
+Application for creating a simple blog
+
+
 En:
 To see the work of the project and create your own small todo blog with single pages of posts (the button is larger in the post), a personal admin panel where you can add, change or delete posts, you need:
 1) Download a local server with PHP support(OpenServer,XAMPP)
