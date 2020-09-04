@@ -1,5 +1,8 @@
 # blog-application
 Application for creating a simple todo-blog
+
+
+
 Приложение для создания своего простого todo-блога
 
 En:
